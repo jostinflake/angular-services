@@ -1,37 +1,41 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" ng-app="avengerApp">
 <head>
     <meta charset="UTF-8">
     <title>Marvel</title>
     <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/styles.css">
 </head>
-<body>
+<body ng-controller="mainCtrl">
 
 <section class="module parallax parallax-1">
     <div class="container">
         <h1>Meet The Avengers</h1>
     </div>
 </section>
-
+        
 <div class="group">
-    <input type="text" required>
+    <input type="text" ng-model="searchText">
     <span class="highlight"></span>
     <span class="bar"></span>
     <label>Name</label>
 </div>
 
 <div class="hero-wrapper">
-    <div class="hero-card">
-        <h3 class="hero-name"></h3>
+    <div class="hero-card" ng-repeat="avenger in avengersArray | filter:{name:searchText}">
+        <h3 class="hero-name">{{ avenger.name }}</h3>
         <div class="hero-image">
-            <img ng-src=""/>
+            <img ng-src="{{ avenger.thumbnail.path }}.{{ avenger.thumbnail.extension }}"/>
         </div>
         <h4 class="description">Description</h4>
-        <p class="description-text"></p>
+        <p class="description-text">{{ avenger.description || "This hero is so awesome, they don't need a description" }}</p>
     </div>
 </div>
 
 
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.5/angular.js"></script>
+<script type="text/javascript" src="scripts/app.js"></script>
+<script type="text/javascript" src="scripts/mainCtrl.js"></script>
+<script type="text/javascript" src="scripts/dataService.js"></script>
 </body>
 </html>
